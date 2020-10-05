@@ -1,41 +1,53 @@
-macOS Dev Environment
+## macOS Dev Environment
 
-Homebrew
+### Homebrew
 
-Package managers make it so much easier to install and update applications (for Operating Systems) or libraries (for programming languages). The most popular one for macOS is Homebrew.
+##### Install
+	xcode-select --install
+	
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	
+	brew doctor
 
-Install
-An important dependency before Homebrew can work is the Command Line Developer Tools for Xcode. These include compilers that will allow you to build things from source. You can install them directly from the terminal with:
-xcode-select --install
-Once that is done, we can install Homebrew by copy-pasting the installation command from the Homebrew homepage inside the terminal:
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-Follow the steps on the screen. You will be prompted for your user password so Homebrew can set up the appropriate permissions.
-Once installation is complete, you can run the following command to make sure everything works:
-brew doctor
-
-Usage
+#### Usage
 To install a package (or Formula in Homebrew vocabulary) simply type:
-brew install <formula>
+	
+	brew install <formula>
+	
 To see if any of your packages need to be updated:
-brew outdated
+
+	brew outdated
+	
 To update a package:
-brew upgrade <formula>
+	
+	brew upgrade <formula>
+
 Homebrew keeps older versions of packages installed, in case you want to rollback. That rarely is necessary, so you can do some cleanup to get rid of those old versions:
-brew cleanup
+
+	brew cleanup
 To see what you have installed (with their version numbers):
-brew list --versions
 
-Homebrew Services
+	brew list --versions
+
+#### Homebrew Services
+
 A nice extension to Homebrew is Homebrew Services. It will automatically launch things like databases when your computer starts, so you don't have to do it manually every time.
-Homebrew Services will automatically install itself the first time you run it, so there is nothing special to do.
-After installing a service (for example a database), it should automatically add itself to Homebrew Services. If not, you can add it manually with:
-brew services <formula>
-Start a service with:
-brew services start <formula>
-At anytime you can view which services are running with:
-brew services list
 
-iTerm2
+Homebrew Services will automatically install itself the first time you run it, so there is nothing special to do.
+
+After installing a service (for example a database), it should automatically add itself to Homebrew Services. If not, you can add it manually with:
+	
+	brew services <formula>
+
+Start a service with:
+	
+	brew services start <formula>
+
+At anytime you can view which services are running with:
+	
+	brew services list
+
+### iTerm2
 
 Install
 It’s a replacement for the terminal. It offers a lot of features that are really useful. I’ll list my favorite ones below.
