@@ -2,7 +2,7 @@
 
 ### Homebrew
 
-##### Install
+#### Install
 	xcode-select --install
 	
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -72,7 +72,7 @@ In the tab Profiles, create a new one with the "+" icon, and rename it to your f
 
 When done, hit the red "X" in the upper left (saving is automatic in macOS preference panes). Close the window and open a new one to see the size change.
 
-### Beautiful terminal
+#### Beautiful terminal
 
 Since we spend so much time in the terminal, we should try to make it a more pleasant and colorful place. What follows might seem like a lot of work, but trust me, it'll make the development experience so much better.
 
@@ -161,15 +161,15 @@ Install with curl
 When the installation is done, edit ~/.zshrc and set ZSH_THEME="agnoster" for the default look. 
 
 #### Install a patched font
-#### clone
+##### clone
 	
 	git clone https://github.com/powerline/fonts.git --depth=1
 	
-#### install
+##### install
 	
 	cd fonts
 	./install.sh
-#### clean-up a bit
+##### clean-up a bit
 	
 	cd ..
 	rm -rf fonts
@@ -411,8 +411,8 @@ Open:
 	
 	mysql -u root -p
 	
-#### Elasticsearch
-### Install:
+### Elasticsearch
+#### Install:
 	
 	brew install elasticsearch
 	
@@ -450,7 +450,7 @@ Open:
 
 	vim ~/.mavenrc
 	
-### Add to file: 
+#### Add to file: 
 	
 	export JAVA_HOME=$(/usr/libexec/java_home)	
 	source .mavenrc
@@ -464,7 +464,7 @@ Open:
 	
 	brew install tomcat
 	
-##### Run:
+#### Run:
 
 	catalina run
 	catalina stop
