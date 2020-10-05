@@ -1,4 +1,4 @@
-## macOS Dev Environment
+## macOS Dev Environment Setup
 
 ### Homebrew
 
@@ -63,15 +63,19 @@ Hotkey window, You can show or hide the iTerm2 window via a hotkey from anywhere
 
 Since we're going to be spending a lot of time in the command-line, let's install a better terminal than the default one. Download and install iTerm2.
 In Finder, drag and drop the iTerm Application file into the Applications folder.
+
 You can now launch iTerm, through the Launchpad for instance.
+
 Let's just quickly change some preferences. In iTerm2 > Preferences..., under the tab General, uncheck Confirm closing multiple sessions and Confirm "Quit iTerm2 (Cmd+Q)" command under the section Closing.
+
 In the tab Profiles, create a new one with the "+" icon, and rename it to your first name for example. Then, select Other Actions... > Set as Default. Under the section General set Working Directory to be Reuse previous session's directory. Finally, under the section Window, change the size to something better, like Columns: 125 and Rows: 35.
+
 When done, hit the red "X" in the upper left (saving is automatic in macOS preference panes). Close the window and open a new one to see the size change.
-—
 
 ### Beautiful terminal
 
 Since we spend so much time in the terminal, we should try to make it a more pleasant and colorful place. What follows might seem like a lot of work, but trust me, it'll make the development experience so much better.
+
 First let's add some color. There are many great color schemes out there, but if you don't know where to start you can try Atom One Dark. Download the iTerm presets for the theme by running:
 
 	cd ~/Downloads
@@ -79,7 +83,9 @@ First let's add some color. There are many great color schemes out there, but if
 	curl -o "Atom One Light.itermcolors" https://raw.githubusercontent.com/nathanbuchar/atom-one-dark-terminal/master/scheme/iterm/One%20Light.itermcolors
 
 Then, in iTerm2 Preferences, under Profiles and Colors, go to Color Presets... > Import..., find and open the Atom One Dark.itermcolors file we just downloaded. Repeat these steps for Atom One Light.itermcolors. Now open Color Presets... again and select Atom One Dark to activate the dark theme (or choose the light them if that's your preference).
+
 Not a lot of colors yet. We need to tweak a little bit our Unix user's profile for that. This is done (on macOS and Linux), in the ~/.bash_profile text file (~ stands for the user's home directory).
+
 We'll come back to the details of that later, but for now, just download the files .bash_profile, .bash_prompt, .aliases attached to this document into your home directory (.bash_profile is the one that gets loaded, I've set it up to call the others):
 	
 	cd ~
@@ -131,7 +137,9 @@ The first thing I recommend is having Homebrew manage its installation — open 
 	brew install zsh zsh-completions
 
 To update our default shell to be Homebrew’s Zsh, we need to edit the shell’s whitelist: sudo vim /etc/shells. (If you’re not comfortable with Vim, you can use TextEdit instead by running sudo open /etc/shells.)
+
 Add a new line with /usr/local/bin/zsh, save, and close.
+
 To change the default shell, run: 
 	
 	chsh -s /usr/local/bin/zsh.
@@ -266,6 +274,7 @@ Next time you enter the project's directory from a terminal, you can load the co
 	nvm use								
 	
 #### npm
+
 Installing Node also installs the npm package manager.
 To install a package:
 
@@ -293,95 +302,171 @@ To uninstall a package:
 	npm uninstall --save <package>
 	
 ### SSH
+
 If you don't already have an SSH key, you must generate a new SSH key. If you're unsure whether you already have an SSH key, check for existing keys.
 
 If you don't want to reenter your passphrase every time you use your SSH key, you can add your key to the SSH agent, which manages your SSH keys and remembers your passphrase.
 
-Generating a new SSH key
+#### Generating a new SSH key
 
-* Open Terminal. 
-* Paste the text below, substituting in your GitHub email address. $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com" This creates a new ssh key, using the provided email as a label. > Generating public/private rsa key pair. 
-* When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. > Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter]  
-* At the prompt, type a secure passphrase. For more information, see "Working with SSH key passphrases". > Enter passphrase (empty for no passphrase): [Type a passphrase]
-* > Enter same passphrase again: [Type passphrase again] 
-Adding your SSH key to the ssh-agent
+Open Terminal.
+Paste the text below, substituting in your GitHub email address.
+	
+	ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+	
+This creates a new ssh key, using the provided email as a label. Generating public/private rsa key pair.
+
+When you're prompted to "Enter a file in which to save the key," press Enter. 
+
+This accepts the default file location. Enter a file in which to save the key (/Users/you/.ssh/id_rsa)
+
+At the prompt, type a secure passphrase. For more information, see "Working with SSH key passphrases".
+	
+	Enter passphrase (empty for no passphrase): [Type a passphrase]
+	Enter same passphrase again: [Type passphrase again]
+
+#### Adding your SSH key to the ssh-agent
+
 Before adding a new SSH key to the ssh-agent to manage your keys, you should have checked for existing SSH keys and generated a new SSH key. When adding your SSH key to the agent, use the default macOS ssh-add command, and not an application installed by macports, homebrew, or some other external source.
-* Start the ssh-agent in the background. $ eval "$(ssh-agent -s)"
-* > Agent pid 59566 
-* If you're using macOS Sierra 10.12.2 or later, you will need to modify your ~/.ssh/config file to automatically load keys into the ssh-agent and store passphrases in your keychain.
-    * First, check to see if your ~/.ssh/config file exists in the default location. $ open ~/.ssh/config
-    * > The file /Users/you/.ssh/config does not exist. 
-    * If the file doesn't exist, create the file. $ touch ~/.ssh/config 
-    * Open your ~/.ssh/config file, then modify the file, replacing ~/.ssh/id_rsa if you are not using the default location and name for your id_rsa key. Host *
-    *   AddKeysToAgent yes
-    *   UseKeychain yes
-    *   IdentityFile ~/.ssh/mymac
-    *  
-* Add your SSH private key to the ssh-agent and store your passphrase in the keychain. If you created your key with a different name, or if you are adding an existing key that has a different name, replace id_rsa in the command with the name of your private key file. $ ssh-add -K ~/.ssh/mymac Note: The -K option is Apple's standard version of ssh-add, which stores the passphrase in your keychain for you when you add an ssh key to the ssh-agent. If you don't have Apple's standard version installed, you may receive an error. For more information on resolving this error, see "Error: ssh-add: illegal option -- K."  
-* Add the SSH key to your GitHub account. 
-	Copy public key to clipboard:
-		pbcopy < ~/.ssh/mymac
-JDK 8
-	Install Java 8 JDK
-		brew tap adoptopenjdk/openjdk
-		brew search jdk
-		brew cask install adoptopenjdk8
-	Check Java version:
-		java -version
-	Get JAVA_HOME Path:
-		usr/libexec/java_home -V
-	Insert to .zshrc: 
-		vim ~/.zshrc
-		export JAVA_HOME=Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
-		source ~/.zshrc
-	Check JAVA_HOME:
-		echo $JAVA_HOME
-MySQL Server (root/Sysadmin1234$)
-	Install:
-		brew update
-		brew install mysql
-	Run:
-		mysql.server start
-		mysql.server stop
-	Setup security:
-		mysql_secure_installation
-	Open:
-		mysql -u root -p
-Elasticsearch
-	Install:
-		brew install elasticsearch
-	Run:
-		elasticsearch
-	Test: 
-		curl -XGET 'http://localhost:9200/'
-		http://localhost:9200/_plugin/head/
-IntelliJ Ultimate
+
+Start the ssh-agent in the background.
+	
+	eval "$(ssh-agent -s)"
+	
+If you're using macOS Sierra 10.12.2 or later, you will need to modify your ~/.ssh/config file to automatically load keys into the ssh-agent and store passphrases in your keychain.
+First, check to see if your ~/.ssh/config file exists in the default location.
+
+	open ~/.ssh/config
+	
+The file /Users/you/.ssh/config does not exist.
+If the file doesn't exist, create the file.
+	
+	touch ~/.ssh/config
+	
+Open your ~/.ssh/config file, then modify the file, replacing ~/.ssh/id_rsa if you are not using the default location and name for your id_rsa key.
+	
+	Host *
+    	AddKeysToAgent yes
+    	UseKeychain yes
+    	IdentityFile ~/.ssh/id_rsa
+	
+Add your SSH private key to the ssh-agent and store your passphrase in the keychain. If you created your key with a different name, or if you are adding an existing key that has a different name, replace id_rsa in the command with the name of your private key file.
+	
+	ssh-add -K ~/.ssh/id_rsa
+	
+Note: The -K option is Apple's standard version of ssh-add, which stores the passphrase in your keychain for you when you add an ssh key to the ssh-agent. If you don't have Apple's standard version installed, you may receive an error. For more information on resolving this error, see "Error: ssh-add: illegal option -- K."  
+
+#### Add the SSH key to your GitHub account.
+
+Copy public key to clipboard:
+	
+	pbcopy < ~/.ssh/id_rsa.pub
+	
+### JDK 8
+#### Install Java 8 JDK
+	
+	brew tap adoptopenjdk/openjdk
+	brew search jdk
+	brew cask install adoptopenjdk8
+	
+#### Check Java version:
+	
+	java -version
+	
+#### Get JAVA_HOME Path:
+	
+	usr/libexec/java_home -V
+	
+#### Insert to .zshrc: 
+
+	vim ~/.zshrc
+	
+Insert line above:
+
+	export JAVA_HOME=Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+Source .zshrc:
+
+	source ~/.zshrc
+	
+Check JAVA_HOME:
+	
+	echo $JAVA_HOME
+	
+### MySQL Server (root/Sysadmin1234$)
+#### Install:
+
+	brew update
+	brew install mysql
+	
+#### Run:
+	
+	mysql.server start
+	mysql.server stop
+	
+#### Setup security:
+	
+	mysql_secure_installation
+	
+Open:
+	
+	mysql -u root -p
+	
+#### Elasticsearch
+### Install:
+	
+	brew install elasticsearch
+	
+#### Run:
+
+	elasticsearch
+	
+#### Test: 
+	
+	curl -XGET 'http://localhost:9200/'
+	http://localhost:9200/_plugin/head/
+	
+### IntelliJ Ultimate
+
 	brew cask install intellij-idea
-Postman
+	
+### Postman
+	
 	brew cask install postman
-Workbench
+	
+### Workbench
+
 	brew cask install mysqlworkbench
-Heroku
+	
+### Maven:	
+#### Install:
+	
+	brew install maven
+	
+#### Check mvn location:
 
-Docker
+	which mvn
 
-Maven:
-	Install:
-		brew install maven
-	Check mvn location:
-		which mvn
-	Setup:
-		vim ~/.mavenrc
-	Add to file: 
-		export JAVA_HOME=$(/usr/libexec/java_home)
-		source .mavenrc
-	Test:
-		mvn -v
-Tomcat:
-	Install:
-		brew install tomcat
-	Run:
-		catalina run
-		catalina stop
+#### Setup:
+
+	vim ~/.mavenrc
+	
+### Add to file: 
+	
+	export JAVA_HOME=$(/usr/libexec/java_home)	
+	source .mavenrc
+	
+#### Test:
+	
+	mvn -v
+	
+### Tomcat:
+#### Install:
+	
+	brew install tomcat
+	
+##### Run:
+
+	catalina run
+	catalina stop
 
 
