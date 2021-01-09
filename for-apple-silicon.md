@@ -1,9 +1,9 @@
-[x] Config
 #### Config terminal open under rosetta 2
-  1. Duplicate terminal app as name [TerminalName] Rosetta
+
+1. Duplicate terminal app as name [TerminalName] Rosetta
   2. Right click to Rosetta Terminal have created -> Get Info
   3. Check to Open using Rosetta
-[x] Homebrew
+
 #### Install Homebrew: 
   1. Open terminal under rosetta 2
   2. Install home brew
