@@ -6,8 +6,13 @@
 #### Install Homebrew: 
   1. Open terminal under rosetta 2
   2. Install home brew
+    
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  3. brew doctor to check
+  
+  3. Check Homebrew
+    
+    brew doctor
   
 #### Uninstall Homebrew:
-  sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+
+    sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
